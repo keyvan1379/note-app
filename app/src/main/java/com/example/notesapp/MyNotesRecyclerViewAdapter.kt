@@ -1,5 +1,6 @@
 package com.example.notesapp
 
+import android.os.Bundle
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -37,9 +38,10 @@ class MyNotesRecyclerViewAdapter(
 
     override fun getItemCount(): Int = values.size
 
+
     inner class ViewHolder(binding: FragmentNoteBinding) : RecyclerView.ViewHolder(binding.root) {
-        val idView: TextView = binding.itemNumber
-        val contentView: TextView = binding.content
+        val idView: TextView = binding.noteTitle
+        val contentView: TextView = binding.noteText
 
         override fun toString(): String {
             return super.toString() + " '" + contentView.text + "'"
