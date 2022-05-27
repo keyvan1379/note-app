@@ -49,7 +49,7 @@ class NotesFragment : Fragment() {
         if (view is RecyclerView) {
             with(view) {
                 layoutManager =  LinearLayoutManager(context)
-                adapter = MyNotesRecyclerViewAdapter(notesList)
+//                adapter = MyNotesRecyclerViewAdapter(notesList)
             }
         }
 //        recyclerView = view.findViewById(R.id.list)

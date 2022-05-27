@@ -109,7 +109,7 @@
                     android:paddingRight="0dp"
                     android:paddingBottom="0dp"
                     android:textAllCaps="false"
-                    android:text="-"
+                    android:text=""
                     android:textColor="@color/white"
                     app:icon="@drawable/ic_baseline_delete_24"
                     app:iconGravity="textEnd"

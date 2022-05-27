@@ -37,7 +37,7 @@ class HomePage : Fragment() {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
-    lateinit var recView : RecyclerView
+    lateinit var notesRecyclerView : RecyclerView
     lateinit var viewModel : NoteViewModel
     private lateinit var notesList : ArrayList<Note>
 
@@ -64,18 +64,18 @@ class HomePage : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         notesList = ArrayList()
-        notesList.add(Note("title", "text"))
-        recView = binding.list
-        recView.layoutManager = LinearLayoutManager(context)
-        val rv_adapter = activity?.let { MyNotesRecyclerViewAdapter(notesList) }
-        recView.adapter = rv_adapter
+        notesRecyclerView = binding.list
+        notesRecyclerView.layoutManager = LinearLayoutManager(context)
         viewModel = ViewModelProvider(this, defaultViewModelProviderFactory).get(NoteViewModel::class.java)
+
+        val adapter = activity?.let { MyNotesRecyclerViewAdapter(notesList, viewModel, findNavController()) }
+        notesRecyclerView.adapter = adapter
 
         viewModel.getNotes().observe(viewLifecycleOwner, Observer { list ->
             list?.let {
                 notesList.clear()
                 notesList.addAll(list)
-                rv_adapter?.update()
+                adapter?.update()
             }
         })
 
