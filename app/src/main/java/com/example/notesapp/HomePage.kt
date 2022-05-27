@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -60,17 +62,22 @@ class HomePage : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         notesList = ArrayList()
+        notesList.add(Note("title", "text"))
         recView = binding.list
         recView.layoutManager = LinearLayoutManager(context)
         val rv_adapter = activity?.let { MyNotesRecyclerViewAdapter(notesList) }
         recView.adapter = rv_adapter
         viewModel = ViewModelProvider(this, defaultViewModelProviderFactory).get(NoteViewModel::class.java)
 
+        viewModel.getNotes().observe(viewLifecycleOwner, Observer { list ->
+            list?.let {
+                notesList = ArrayList(list)
+            }
+        })
 
-        System.out.print("on view created")
         binding.addNoteBtn.setOnClickListener {
-            findNavController().navigate(R.id.action_HomePage_to_NotePage)
-            System.out.print("hi")
+            val bundle = bundleOf("is_new_note" to true)
+            findNavController().navigate(R.id.action_HomePage_to_NotePage, bundle)
         }
 
     }

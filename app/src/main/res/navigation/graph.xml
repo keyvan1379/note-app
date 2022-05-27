@@ -10,6 +10,10 @@
         android:name="com.example.notesapp.HomePage"
         android:label="naviagte_to_note"
         tools:layout="@layout/fragment_home_page">
+        <argument
+            android:name="is_new_note"
+            app:argType="boolean"
+            android:defaultValue="false" />
 
         <action
             android:id="@+id/action_HomePage_to_NotePage"

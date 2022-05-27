@@ -109,7 +109,7 @@ class NotePage : Fragment() {
             }
 
 
-            findNavController().navigate(R.id.action_HomePage_to_NotePage)
+            findNavController().navigate(R.id.action_NotePage_to_HomePage)
         }
     }
 

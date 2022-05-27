@@ -31,6 +31,7 @@ class MyNotesRecyclerViewAdapter(
 
     }
 
+
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = values[position]
         holder.noteTitle.text = item.Title

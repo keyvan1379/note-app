@@ -21,6 +21,7 @@ class NoteViewModel(application: Application): AndroidViewModel(application) {
         allNotes = repo.allNotes
     }
 
+
     fun insert(note: Note) = viewModelScope.launch(Dispatchers.IO) {
         repo.insert(note)
     }
@@ -31,5 +32,9 @@ class NoteViewModel(application: Application): AndroidViewModel(application) {
 
     fun update(note: Note) = viewModelScope.launch(Dispatchers.IO) {
         repo.update(note)
+    }
+
+    fun getNotes(): LiveData<List<Note>> {
+        return allNotes
     }
 }
