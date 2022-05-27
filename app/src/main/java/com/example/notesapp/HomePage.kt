@@ -1,5 +1,6 @@
 package com.example.notesapp
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -59,6 +60,7 @@ class HomePage : Fragment() {
     }
 
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         notesList = ArrayList()
@@ -71,7 +73,9 @@ class HomePage : Fragment() {
 
         viewModel.getNotes().observe(viewLifecycleOwner, Observer { list ->
             list?.let {
-                notesList = ArrayList(list)
+                notesList.clear()
+                notesList.addAll(list)
+                rv_adapter?.update()
             }
         })
 

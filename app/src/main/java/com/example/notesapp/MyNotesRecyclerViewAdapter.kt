@@ -40,6 +40,9 @@ class MyNotesRecyclerViewAdapter(
 
     override fun getItemCount(): Int = values.size
 
+    fun update() {
+        notifyDataSetChanged()
+    }
 
     inner class ViewHolder(binding: FragmentNoteBinding) : RecyclerView.ViewHolder(binding.root) {
         val noteTitle: TextView = binding.noteTitle
