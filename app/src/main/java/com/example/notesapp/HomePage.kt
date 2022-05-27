@@ -5,8 +5,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.notesapp.databinding.FragmentHomePageBinding
+import com.example.notesapp.models.Note
+import com.example.notesapp.viewModel.NoteViewModel
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -28,6 +34,9 @@ class HomePage : Fragment() {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
+    lateinit var recView : RecyclerView
+    lateinit var viewModel : NoteViewModel
+    private lateinit var notesList : ArrayList<Note>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,6 +59,14 @@ class HomePage : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        notesList = ArrayList()
+        recView = binding.list
+        recView.layoutManager = LinearLayoutManager(context)
+        val rv_adapter = activity?.let { MyNotesRecyclerViewAdapter(notesList) }
+        recView.adapter = rv_adapter
+//        viewModel = ViewModelProvider(this, defaultViewModelProviderFactory).get(NoteViewModel::class.java)
+
+
         System.out.print("on view created")
         binding.addNoteBtn.setOnClickListener {
             findNavController().navigate(R.id.action_HomePage_to_NotePage)

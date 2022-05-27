@@ -8,6 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.notesapp.databinding.FragmentHomePageBinding
+import com.example.notesapp.databinding.FragmentNoteListBinding
+import com.example.notesapp.models.Note
 import com.example.notesapp.placeholder.PlaceholderContent
 
 /**
@@ -16,32 +19,46 @@ import com.example.notesapp.placeholder.PlaceholderContent
 class NotesFragment : Fragment() {
 
     private var columnCount = 1
+    private lateinit var notesList : ArrayList<Note>
+    private var _binding: FragmentNoteListBinding? = null
 
+    // This property is only valid between onCreateView and
+    // onDestroyView.
+    private val binding get() = _binding!!
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        notesList = ArrayList()
+        notesList.add(Note("title", "content"))
         arguments?.let {
             columnCount = it.getInt(ARG_COLUMN_COUNT)
         }
+        print("notes done")
+
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_note_list, container, false)
+//        _binding = FragmentNoteListBinding.inflate(inflater, container, false)
+//        val view = binding.root
+//        return view
 
+        val view = inflater.inflate(R.layout.fragment_note_list, container, false)
         // Set the adapter
         if (view is RecyclerView) {
             with(view) {
-                layoutManager = when {
-                    columnCount <= 1 -> LinearLayoutManager(context)
-                    else -> GridLayoutManager(context, columnCount)
-                }
-                adapter = MyNotesRecyclerViewAdapter(PlaceholderContent.ITEMS)
+                layoutManager =  LinearLayoutManager(context)
+                adapter = MyNotesRecyclerViewAdapter(notesList)
             }
         }
+//        recyclerView = view.findViewById(R.id.list)
         return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        print("hi")
     }
 
     companion object {
