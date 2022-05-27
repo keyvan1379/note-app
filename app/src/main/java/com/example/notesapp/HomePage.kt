@@ -64,7 +64,7 @@ class HomePage : Fragment() {
         recView.layoutManager = LinearLayoutManager(context)
         val rv_adapter = activity?.let { MyNotesRecyclerViewAdapter(notesList) }
         recView.adapter = rv_adapter
-//        viewModel = ViewModelProvider(this, defaultViewModelProviderFactory).get(NoteViewModel::class.java)
+        viewModel = ViewModelProvider(this, defaultViewModelProviderFactory).get(NoteViewModel::class.java)
 
 
         System.out.print("on view created")
