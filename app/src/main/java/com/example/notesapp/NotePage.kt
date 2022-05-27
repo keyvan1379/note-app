@@ -15,6 +15,7 @@ import com.example.notesapp.databinding.FragmentHomePageBinding
 import com.example.notesapp.databinding.FragmentNotePageBinding
 import com.example.notesapp.models.Note
 import com.example.notesapp.viewModel.NoteViewModel
+import com.google.android.material.snackbar.Snackbar
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -95,6 +96,7 @@ class NotePage : Fragment() {
                 {
                     val note = Note(newTitle,newContent)
                     noteViewModel.insert(note)
+                    Snackbar.make(it, "Note Created", Snackbar.LENGTH_LONG).show()
                 }
             }
             else
@@ -105,11 +107,12 @@ class NotePage : Fragment() {
                     // set Id for update note
                     note.Id = noteId!!
                     noteViewModel.update(note)
+                    Snackbar.make(it, "Note Updated", Snackbar.LENGTH_LONG).show()
                 }
             }
 
-
-            findNavController().navigate(R.id.action_NotePage_to_HomePage)
+            if (canProceed)
+                findNavController().navigate(R.id.action_NotePage_to_HomePage)
         }
     }
 
