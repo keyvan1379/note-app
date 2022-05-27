@@ -1,14 +1,20 @@
 package com.example.notesapp
 
+import android.app.Application
 import android.os.Bundle
+import android.provider.ContactsContract
+import android.text.Editable
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.notesapp.databinding.ActivityMainBinding
 import com.example.notesapp.databinding.FragmentHomePageBinding
 import com.example.notesapp.databinding.FragmentNotePageBinding
+import com.example.notesapp.models.Note
+import com.example.notesapp.viewModel.NoteViewModel
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -50,9 +56,60 @@ class NotePage : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val isNewNote = arguments?.getBoolean("is_new_note", true)
+        val noteTitle = arguments?.getString("note_title", "")
+        val noteContent = arguments?.getString("note_content", "")
+        val noteId = arguments?.getInt("note_id", -1)
+
+        if (isNewNote == false)
+        {
+            binding.titleTextField.editText?.text = Editable.Factory.getInstance().newEditable(noteTitle)
+            binding.textField.editText?.text = Editable.Factory.getInstance().newEditable(noteContent)
+        }
+
+        var noteViewModel = ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory.getInstance(
+            Application())
+        ).get(NoteViewModel::class.java)
+
         binding.saveBtn.setOnClickListener {
+            // Get vals
+            val newTitle = binding.titleTextField.editText?.text.toString()
+            val newContent = binding.textField.editText?.text.toString()
+
+            var canProceed = true
+
+            if (newTitle.isEmpty())
+            {
+                binding.titleTextField.error = "Title cannot be empty"
+                canProceed = false
+            }
+            else if (newContent.isEmpty())
+            {
+                binding.textField.error = "Content cannot be empty"
+                canProceed = false
+            }
+
+            if (isNewNote == true)
+            {
+                if (canProceed)
+                {
+                    val note = Note(newTitle,newContent)
+                    noteViewModel.insert(note)
+                }
+            }
+            else
+            {
+                if (canProceed)
+                {
+                    val note = Note(newTitle,newContent)
+                    // set Id for update note
+                    note.Id = noteId!!
+                    noteViewModel.update(note)
+                }
+            }
+
+
             findNavController().navigate(R.id.action_HomePage_to_NotePage)
-            System.out.print("hi")
         }
     }
 
