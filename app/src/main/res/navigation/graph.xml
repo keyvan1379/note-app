@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/HomePageFragment">
+
+    <fragment
+        android:id="@+id/HomePageFragment"
+        android:name="com.example.notesapp.HomePage"
+        android:label="naviagte_to_note"
+        tools:layout="@layout/fragment_home_page">
+
+        <action
+            android:id="@+id/action_HomePage_to_NotePage"
+            app:destination="@id/NotePageFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/NotePageFragment"
+        android:name="com.example.notesapp.NotePage"
+        android:label="naviagte_to_home"
+        tools:layout="@layout/fragment_note_page">
+
+        <action
+            android:id="@+id/action_NotePage_to_HomePage"
+            app:destination="@id/HomePageFragment" />
+    </fragment>
+</navigation>

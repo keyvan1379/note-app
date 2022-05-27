@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".HomePage">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:fontFamily="sans-serif"
+                android:text="Notes"
+                android:textAlignment="center"
+                android:textColor="@color/text_color"
+                android:textSize="28dp" />
+
+            <Button
+                android:id="@+id/addNoteBtn"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:backgroundTint="#797191"
+                android:text="Add note"
+                android:textColor="@color/white"
+                app:strokeColor="#797191" />
+
+            <include layout="@layout/fragment_note_list" />
+
+        </LinearLayout>
+    </ScrollView>
+</FrameLayout>
